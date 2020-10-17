@@ -9,6 +9,7 @@
 - [Bluetooth transceiver (Connects to iPhone)](https://www.amazon.com/gp/product/B06WGZB2N4/ref=ppx_yo_dt_b_asin_title_o00_s00?ie=UTF8&psc=1)
 - [Batteries](https://www.amazon.com/gp/product/B083K4XSKG/ref=ppx_yo_dt_b_asin_title_o02_s00?ie=UTF8&psc=1)
 - [Battery holder](https://www.amazon.com/gp/product/B0858WTZM7/ref=ppx_yo_dt_b_asin_title_o01_s00?ie=UTF8&psc=1)
+- [Switches](https://www.amazon.com/5Pcs-Rocker-Switch-Position-QTEATAK/dp/B07Y1GDRQG/ref=sr_1_6?dchild=1&keywords=electronic+switch&qid=1602948480&sr=8-6)
 
 ## Extraneous Items
 - [Multimeter](https://www.amazon.com/gp/product/B01ISAMUA6/ref=ppx_yo_dt_b_asin_title_o00_s00?ie=UTF8&psc=1)
