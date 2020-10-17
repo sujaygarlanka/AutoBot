@@ -28,3 +28,5 @@ Ranges were calculating by applying no resistance and full resistance to the mot
     - http://www.hangar42.nl/hm10
     - https://www.freecodecamp.org/news/ultimate-how-to-bluetooth-swift-with-hardware-in-20-minutes/
 - Bluetooth commands: https://drive.google.com/file/d/17Zf_pb6ikwaUtI67UDObh17c07OQFQOh/view
+### Misc
+- [Icon image](https://dribbble.com/shots/9867194-Mars-Rover)
