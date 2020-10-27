@@ -78,32 +78,38 @@
                         <rect key="frame" x="0.0" y="0.0" width="812" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Autonomous" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="zEq-FU-wV5">
-                                <rect key="frame" x="307.66666666666669" y="166" width="197" height="43"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="36"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loaded by AutonomousViewController" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NDk-cv-Gan">
-                                <rect key="frame" x="282.66666666666669" y="217" width="247.00000000000006" height="17"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XS1-aV-cmA">
+                                <rect key="frame" x="383" y="267" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="testPhotoWithSender:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="egp-hX-edO"/>
+                                </connections>
+                            </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eFf-hc-caj">
+                                <rect key="frame" x="221" y="20" width="371" height="239"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="NDk-cv-Gan" firstAttribute="top" secondItem="zEq-FU-wV5" secondAttribute="bottom" constant="8" symbolic="YES" id="Day-4N-Vmt"/>
-                            <constraint firstItem="NDk-cv-Gan" firstAttribute="centerX" secondItem="zEq-FU-wV5" secondAttribute="centerX" id="JgO-Fn-dHn"/>
-                            <constraint firstAttribute="centerX" secondItem="zEq-FU-wV5" secondAttribute="centerX" id="qqM-NS-xev"/>
-                            <constraint firstAttribute="centerY" secondItem="zEq-FU-wV5" secondAttribute="centerY" id="qzY-Ky-pLD"/>
+                            <constraint firstItem="O1u-W8-tvY" firstAttribute="bottom" secondItem="XS1-aV-cmA" secondAttribute="bottom" constant="25" id="Gof-0Y-GVt"/>
+                            <constraint firstItem="XS1-aV-cmA" firstAttribute="leading" secondItem="O1u-W8-tvY" secondAttribute="leading" constant="339" id="LUm-aI-zKH"/>
+                            <constraint firstItem="eFf-hc-caj" firstAttribute="leading" secondItem="O1u-W8-tvY" secondAttribute="leading" constant="177" id="ODr-LZ-0Dc"/>
+                            <constraint firstItem="XS1-aV-cmA" firstAttribute="top" secondItem="eFf-hc-caj" secondAttribute="bottom" constant="8" id="Qda-iw-rJ7"/>
+                            <constraint firstItem="eFf-hc-caj" firstAttribute="top" secondItem="O1u-W8-tvY" secondAttribute="top" constant="20" id="aqF-AS-ahi"/>
+                            <constraint firstItem="O1u-W8-tvY" firstAttribute="trailing" secondItem="eFf-hc-caj" secondAttribute="trailing" constant="176" id="iJt-3C-ImI"/>
+                            <constraint firstItem="XS1-aV-cmA" firstAttribute="top" secondItem="eFf-hc-caj" secondAttribute="bottom" constant="8" id="qzY-p3-LMU"/>
+                            <constraint firstItem="O1u-W8-tvY" firstAttribute="trailing" secondItem="XS1-aV-cmA" secondAttribute="trailing" constant="339" id="zUM-cP-3be"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="O1u-W8-tvY"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Autonomous" image="second" id="cPa-gy-q4n"/>
+                    <connections>
+                        <outlet property="photoImageView" destination="eFf-hc-caj" id="tTq-7R-Alz"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1003" y="226"/>
+            <point key="canvasLocation" x="1002.7093596059113" y="224.80000000000001"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
