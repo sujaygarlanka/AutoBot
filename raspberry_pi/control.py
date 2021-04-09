@@ -1,0 +1,16 @@
+import RPi.GPIO as GPIO
+import time
+
+BACK_1 = 14
+BACK_2 = 15
+BACK_POWER = 18
+
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(BACK_1, GPIO.OUT)
+GPIO.setup(BACK_2, GPIO.OUT)
+GPIO.setup(BACK_POWER, GPIO.OUT)
+
+GPIO.output(BACK_1, GPIO.HIGH)
+GPIO.output(BACK_2, GPIO.LOW)
+GPIO.output(BACK_POWER, GPIO.LOW)
