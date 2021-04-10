@@ -51,7 +51,7 @@ def stop():
 class WebSocket(tornado.websocket.WebSocketHandler):
 
 	def on_message(self, message):
-	"""Evaluates the function pointed to by json-rpc."""
+		"""Evaluates the function pointed to by json-rpc."""
 		if message == 'f':
 			forward(0)
 			self.write_message("forward")
