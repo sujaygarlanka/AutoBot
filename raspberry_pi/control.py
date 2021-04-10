@@ -38,7 +38,7 @@ def forward(power):
     GPIO.output(BACK_1, GPIO.HIGH)
     GPIO.output(BACK_2, GPIO.LOW)
     
-def reverse(power):
+def backward(power):
     GPIO.output(BACK_POWER, GPIO.HIGH)
     GPIO.output(BACK_1, GPIO.LOW)
     GPIO.output(BACK_2, GPIO.HIGH)
@@ -52,8 +52,24 @@ class WebSocket(tornado.websocket.WebSocketHandler):
 
     def on_message(self, message):
         """Evaluates the function pointed to by json-rpc."""
-        print(message)
-        self.write_message("kartik is awesome")
+        if message == 'f':
+                forward(0)
+                self.write_message("forward")
+        elif message == 'b':
+                backward(0)
+                self.write_message("backward")
+        elif message == 's':
+                stop()
+                self.write_message("stop")
+        elif message == 'r':
+                right(0)
+                self.write_message("right")
+        elif message == 'l':
+                left(0)
+                self.write_message("left")
+	elif message == 'c':
+		center()
+		self.write_message('center')
     
 if __name__ == "__main__":
     handlers = [(r"/websocket", WebSocket)]
