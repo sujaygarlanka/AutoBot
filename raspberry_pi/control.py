@@ -70,6 +70,8 @@ class WebSocket(tornado.websocket.WebSocketHandler):
 	elif message == 'c':
 		center()
 		self.write_message('center')
+	else:
+		self.write_message('command not recognized')
     
 if __name__ == "__main__":
     handlers = [(r"/websocket", WebSocket)]
