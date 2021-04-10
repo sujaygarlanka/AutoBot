@@ -52,21 +52,21 @@ class WebSocket(tornado.websocket.WebSocketHandler):
 
     def on_message(self, message):
         """Evaluates the function pointed to by json-rpc."""
-        if message == 'f':
-                forward(0)
-                self.write_message("forward")
-        elif message == 'b':
-                backward(0)
-                self.write_message("backward")
-        elif message == 's':
-                stop()
-                self.write_message("stop")
-        elif message == 'r':
-                right(0)
-                self.write_message("right")
-        elif message == 'l':
-                left(0)
-                self.write_message("left")
+	if message == 'f':
+		forward(0)
+		self.write_message("forward")
+	elif message == 'b':
+		backward(0)
+		self.write_message("backward")
+	elif message == 's':
+		stop()
+		self.write_message("stop")
+	elif message == 'r':
+		right(0)
+		self.write_message("right")
+	elif message == 'l':
+		left(0)
+		self.write_message("left")
 	elif message == 'c':
 		center()
 		self.write_message('center')
