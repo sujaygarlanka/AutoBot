@@ -1,5 +1,7 @@
 import RPi.GPIO as GPIO
 import time
+import tornado.web
+import tornado.websocket
 
 BACK_1 = 14
 BACK_2 = 15
@@ -46,9 +48,16 @@ def stop():
     GPIO.output(BACK_1, GPIO.LOW)
     GPIO.output(BACK_2, GPIO.LOW)
     
+class WebSocket(tornado.websocket.WebSocketHandler):
+
+    def on_message(self, message):
+        """Evaluates the function pointed to by json-rpc."""
+        print(message)
+        self.write_message("kartik is awesome")
     
 if __name__ == "__main__":
-    forward(5)
-    time.sleep(5)
-    stop()
+    handlers = [(r"/websocket", WebSocket)]
+    application = tornado.web.Application(handlers)
+    application.listen(8000)
+    tornado.ioloop.IOLoop.instance().start()
 
