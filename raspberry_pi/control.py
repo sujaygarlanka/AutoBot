@@ -16,6 +16,9 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setup(BACK_1, GPIO.OUT)
 GPIO.setup(BACK_2, GPIO.OUT)
 GPIO.setup(BACK_POWER, GPIO.OUT)
+GPIO.setup(FRONT_1, GPIO.OUT)
+GPIO.setup(FRONT_2, GPIO.OUT)
+GPIO.setup(FRONT_POWER, GPIO.OUT)
 
 
 def left(power):
