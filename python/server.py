@@ -18,7 +18,7 @@ def on_press(key):
     if key == Key.up:
         asyncio.run(send_command('f'))
     elif key == Key.down:
-        asyncio.run(send_comdmand('b'))
+        asyncio.run(send_command('b'))
     elif key == Key.right:
         asyncio.run(send_command('r'))
     elif key == Key.left:
