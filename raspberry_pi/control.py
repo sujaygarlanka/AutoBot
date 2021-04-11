@@ -77,6 +77,11 @@ class WebSocket(tornado.websocket.WebSocketHandler):
 			self.write_message('command not recognized')
 
 if __name__ == "__main__":
+	left(0)
+	time.sleep(1)
+	right(0)
+	time.sleep(1)
+	center(0)
 	handlers = [(r"/websocket", WebSocket)]
 	application = tornado.web.Application(handlers)
 	application.listen(8000)
