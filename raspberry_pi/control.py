@@ -81,7 +81,7 @@ if __name__ == "__main__":
 	time.sleep(1)
 	right(0)
 	time.sleep(1)
-	center(0)
+	center()
 	handlers = [(r"/websocket", WebSocket)]
 	application = tornado.web.Application(handlers)
 	application.listen(8000)
