@@ -41,21 +41,31 @@ def on_release(key):
 with Listener( on_press=on_press, on_release=on_release) as listener:
     listener.join()
 
-# if __name__=='__main__':
-#     while True:
-#         key = cv2.waitKey(1) & 0xFF
 
-#         # if the 'ESC' key is pressed, Quit
-#         if key == 27:
-#             quit()
-#         if key == 0:
-#             print("up")
-#         elif key == 1:
-#             print("down")
-#         elif key == 2:
-#             print("left")
-#         elif key == 3:
-#             print("right")
-#         # 255 is what the console returns when there is no key press...
-#         elif key != 255:
-#             print(key)
+# import numpy as np
+# import urllib.request
+# import cv2
+
+
+# # Replace the URL with your own IPwebcam shot.jpg IP:port
+# url='http://192.168.4.101:8080/shot.jpg'
+
+
+# while True:
+#     # Use urllib to get the image from the IP camera
+#     imgResp = urllib.request.urlopen(url)
+
+#     # Numpy to convert into a array
+#     imgNp = np.array(bytearray(imgResp.read()),dtype=np.uint8)
+
+#     # Decode the array to OpenCV usable format
+#     img = cv2.imdecode(imgNp,-1)
+
+
+#     # put the image on screen
+#     cv2.imshow('IPWebcam',img)
+    
+#     # Program closes if q is pressed
+#     if cv2.waitKey(1) & 0xFF == ord('q'):
+#         break
+    
