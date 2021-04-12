@@ -1,0 +1,8 @@
+numpy==1.20.2
+opencv-python==4.5.1.48
+pynput==1.7.3
+pyobjc-core==7.1
+pyobjc-framework-Cocoa==7.1
+pyobjc-framework-Quartz==7.1
+six==1.15.0
+websockets==8.1

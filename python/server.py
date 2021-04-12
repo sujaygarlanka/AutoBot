@@ -3,43 +3,69 @@ import websockets
 import cv2
 from pynput.keyboard import Key, Listener
 
-async def send_command(command):
-    uri = "ws://192.168.4.80:8000/websocket"
-    async with websockets.connect(uri) as websocket:
-        await websocket.send(command)
-        response = await websocket.recv()
-        print(response)
+class Commands:
+    @staticmethod
+    async def send_command(command):
+        uri = "ws://192.168.4.80:8000/websocket"
+        async with websockets.connect(uri) as websocket:
+            await websocket.send(command)
+            response = await websocket.recv()
+            print(response)
 
-# keyboard.on_press_key("f", lambda _:asyncio.run(send_command('f')))
-# keyboard.on_press_key("s", lambda _:asyncio.run(send_command('s')))
+    @staticmethod
+    def forward():
+        asyncio.run(Commands.send_command('f'))
 
-def on_press(key):
-    print(key)
-    if key == Key.up:
-        asyncio.run(send_command('f'))
-    elif key == Key.down:
-        asyncio.run(send_command('b'))
-    elif key == Key.right:
-        asyncio.run(send_command('r'))
-    elif key == Key.left:
-        asyncio.run(send_command('l'))
+    @staticmethod
+    def backward():
+        asyncio.run(Commands.send_command('b'))
 
-def on_release(key):
-    if key == Key.esc:
-        # Stop listener
-        return False
-    if key == Key.up:
-        asyncio.run(send_command('s'))
-    elif key == Key.down:
-        asyncio.run(send_command('s'))
-    elif key == Key.right:
-        asyncio.run(send_command('c'))
-    elif key == Key.left:
-        asyncio.run(send_command('c'))
+    @staticmethod
+    def stop():
+        asyncio.run(Commands.send_command('s'))
 
-# Collect events until released
-with Listener( on_press=on_press, on_release=on_release) as listener:
-    listener.join()
+    @staticmethod
+    def right():
+        asyncio.run(Commands.send_command('r'))
+
+    @staticmethod
+    def left():
+        asyncio.run(Commands.send_command('l'))
+
+    @staticmethod
+    def center():
+        asyncio.run(Commands.send_command('c'))
+
+class Keyboard_Controller:
+    def __init__(self):
+        pass
+
+    def on_press(self, key):
+        if key == Key.up:
+            Commands.forward()
+        elif key == Key.down:
+            Commands.backward()
+        elif key == Key.right:
+            Commands.right()
+        elif key == Key.left:
+            Commands.left()
+
+    def on_release(self, key):
+        if key == Key.esc:
+            # Stop listener
+            return False
+        if key == Key.up or key == Key.down:
+            Commands.stop()
+        elif key == Key.right or key == Key.left:
+            Commands.center()
+
+    def start(self):
+        # Collect events until released
+        with Listener(on_press=self.on_press, on_release=self.on_release) as listener:
+            listener.join()
+
+Keyboard_Controller().start()
+
 
 
 # import numpy as np
