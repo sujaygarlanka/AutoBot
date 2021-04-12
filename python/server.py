@@ -64,7 +64,8 @@ class Keyboard_Controller:
         with Listener(on_press=self.on_press, on_release=self.on_release) as listener:
             listener.join()
 
-Keyboard_Controller().start()
+if __name__ == '__main__':
+    Keyboard_Controller().start()
 
 
 
