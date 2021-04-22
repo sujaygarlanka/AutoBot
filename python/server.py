@@ -1,5 +1,3 @@
-import asyncio
-import websockets
 import cv2
 from pynput.keyboard import Key, Listener
 from imutils.video import VideoStream
@@ -7,62 +5,65 @@ import threading, queue
 import urllib.request
 import numpy as np
 import imutils
+import socket
+import time
+import argparse
 
-class Commands:
-    @staticmethod
-    async def send_command(command):
-        uri = "ws://192.168.4.80:8000/websocket"
-        async with websockets.connect(uri) as websocket:
-            await websocket.send(command)
-            response = await websocket.recv()
-            print(response)
+class Controller:
+        
+    HOST = '192.168.4.106'  # The server's hostname or IP address
+    PORT = 23        # The port used by the server
 
-    @staticmethod
-    def forward():
-        asyncio.run(Commands.send_command('f'))
+    def __init__(self):
+        self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.s.connect((self.HOST, self.PORT))
 
-    @staticmethod
-    def backward():
-        asyncio.run(Commands.send_command('b'))
+    def _send_command(self, command, power):
+        bytes = bytearray(str.encode(command))
+        bytes.append(np.uint8(power))
+        self.s.sendall(bytes)
+        return repr(self.s.recv(1024))
 
-    @staticmethod
-    def stop():
-        asyncio.run(Commands.send_command('s'))
+    def left(self, power = 255):
+        return self._send_command('L', power)
 
-    @staticmethod
-    def right():
-        asyncio.run(Commands.send_command('r'))
+    def right(self, power = 255):
+        return self._send_command('R', power)
 
-    @staticmethod
-    def left():
-        asyncio.run(Commands.send_command('l'))
+    def center(self):
+        return self._send_command('C', 0)
 
-    @staticmethod
-    def center():
-        asyncio.run(Commands.send_command('c'))
+    def forward(self, power = 255):
+        return self._send_command('F', power)
+
+    def backward(self, power = 255):
+        return self._send_command('B', power)
+
+    def stop(self):
+        return self._send_command('S', 0)
 
 class Keyboard_Controller:
     def __init__(self):
-        pass
+        self.controller = Controller()
 
     def on_press(self, key):
         if key == Key.up:
-            Commands.forward()
+            self.controller.forward()
         elif key == Key.down:
-            Commands.backward()
+            self.controller.backward()
         elif key == Key.right:
-            Commands.right()
+            self.controller.right()
         elif key == Key.left:
-            Commands.left()
+            print(self.controller.left())
 
     def on_release(self, key):
         if key == Key.esc:
             # Stop listener
             return False
         if key == Key.up or key == Key.down:
-            Commands.stop()
+            self.controller.stop()
         elif key == Key.right or key == Key.left:
-            Commands.center()
+            self.controller.center()
 
     def start(self):
         # Collect events until released
@@ -96,6 +97,7 @@ class Camera():
             # resize the frame, blur it, and convert it to the HSV
             # color space
             # frame size is 600 x 337 (w x h)
+            frame = cv2.resize(frame, None, fx=3, fy=3, interpolation=cv2.INTER_LINEAR)
             frame = imutils.resize(frame, width=600)
             blurred = cv2.GaussianBlur(frame, (11, 11), 0)
             hsv = cv2.cvtColor(blurred, cv2.COLOR_BGR2HSV)
@@ -115,7 +117,10 @@ class Camera():
             # it to compute the minimum enclosing circle and
             # centroid
             locations_in_frame = []
-            for c in cnts:
+
+            # for c in cnts:
+            if len(cnts) > 0:
+                c = max(cnts, key=cv2.contourArea)
                 ((x, y), radius) = cv2.minEnclosingCircle(c)
                 # only proceed if the radius meets a minimum size
                 if radius > 10:
@@ -137,20 +142,32 @@ class Camera():
         # close all windows
         cv2.destroyAllWindows()
 
-
-def main(locations):
+def bot_control(locations):
+    controller = Controller()
     while True:
         ball = locations.get()
+        # radius - 16, 173
         if len(ball) > 0:
-            if ball[0][0] < 300:
-                Commands.right()
-            else:
-                Commands.left()
-
+            if ball[0][0] < 250:
+                controller.left()
+            elif ball[0][0] > 350:
+                controller.right()
+            # if ball[0][2] < 60:
+            #     Commands.forward()
+            # elif ball[0][2] > 60:
+            #     Commands.stop()
+            
 if __name__ == '__main__':
-    Commands.right()
-    # camera = Camera()
-    # x = threading.Thread(target=main, args=(camera.locations_stream,))
-    # x.start()
-    # camera.stream_ball_locations()
-    # Keyboard_Controller().start()
+    ap = argparse.ArgumentParser()
+    ap.add_argument("-m", "--meltdown",
+        help="meltdown and must turn off all motors", action='store_true')
+    args = vars(ap.parse_args())
+    if args.meltdown:
+        controller = Controller()
+        controller.stop()
+        controller.center()
+    else:
+        camera = Camera()
+        threading.Thread(target=bot_control, args=(camera.locations_stream,)).start()
+        camera.stream_ball_locations()
+
