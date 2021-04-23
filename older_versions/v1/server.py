@@ -1,3 +1,5 @@
+import asyncio
+import websockets
 import cv2
 from pynput.keyboard import Key, Listener
 from imutils.video import VideoStream
@@ -6,64 +8,62 @@ import urllib.request
 import numpy as np
 import imutils
 import socket
-import time
-import argparse
 
-class Controller:
-        
-    HOST = '192.168.4.106'  # The server's hostname or IP address
-    PORT = 23        # The port used by the server
+class Commands:
+    @staticmethod
+    async def send_command(command):
+        uri = "ws://192.168.4.106:23"
+        async with websockets.connect(uri) as websocket:
+            await websocket.send(command)
+            response = await websocket.recv()
+            print(response)
 
-    def __init__(self):
-        self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.s.connect((self.HOST, self.PORT))
+    @staticmethod
+    def forward():
+        asyncio.run(Commands.send_command('f'))
 
-    def _send_command(self, command, power):
-        bytes = bytearray(str.encode(command))
-        bytes.append(np.uint8(power))
-        self.s.sendall(bytes)
-        return repr(self.s.recv(1024))
+    @staticmethod
+    def backward():
+        asyncio.run(Commands.send_command('b'))
 
-    def left(self, power = 255):
-        return self._send_command('L', power)
+    @staticmethod
+    def stop():
+        asyncio.run(Commands.send_command('s'))
 
-    def right(self, power = 255):
-        return self._send_command('R', power)
+    @staticmethod
+    def right():
+        asyncio.run(Commands.send_command('r'))
 
-    def center(self):
-        return self._send_command('C', 0)
+    @staticmethod
+    def left():
+        asyncio.run(Commands.send_command('l'))
 
-    def forward(self, power = 255):
-        return self._send_command('F', power)
-
-    def backward(self, power = 255):
-        return self._send_command('B', power)
-
-    def stop(self):
-        return self._send_command('S', 0)
+    @staticmethod
+    def center():
+        asyncio.run(Commands.send_command('c'))
 
 class Keyboard_Controller:
     def __init__(self):
-        self.controller = Controller()
+        pass
 
     def on_press(self, key):
         if key == Key.up:
-            self.controller.forward()
+            Commands.forward()
         elif key == Key.down:
-            self.controller.backward()
+            Commands.backward()
         elif key == Key.right:
-            self.controller.right()
+            Commands.right()
         elif key == Key.left:
-            print(self.controller.left())
+            Commands.left()
 
     def on_release(self, key):
         if key == Key.esc:
             # Stop listener
             return False
         if key == Key.up or key == Key.down:
-            self.controller.stop()
+            Commands.stop()
         elif key == Key.right or key == Key.left:
-            self.controller.center()
+            Commands.center()
 
     def start(self):
         # Collect events until released
@@ -142,32 +142,27 @@ class Camera():
         # close all windows
         cv2.destroyAllWindows()
 
-def bot_control(locations):
-    controller = Controller()
+
+def reset():
+    Commands.stop()
+    Commands.center()
+
+def main(locations):
     while True:
         ball = locations.get()
         # radius - 16, 173
         if len(ball) > 0:
             if ball[0][0] < 250:
-                controller.left()
+                Commands.left()
             elif ball[0][0] > 350:
-                controller.right()
-            # if ball[0][2] < 60:
-            #     Commands.forward()
-            # elif ball[0][2] > 60:
-            #     Commands.stop()
+                Commands.right()
+            if ball[0][2] < 60:
+                Commands.forward()
+            elif ball[0][2] > 60:
+                Commands.stop()
             
 if __name__ == '__main__':
-    ap = argparse.ArgumentParser()
-    ap.add_argument("-m", "--meltdown",
-        help="meltdown and must turn off all motors", action='store_true')
-    args = vars(ap.parse_args())
-    if args.meltdown:
-        controller = Controller()
-        controller.stop()
-        controller.center()
-    else:
-        camera = Camera()
-        threading.Thread(target=bot_control, args=(camera.locations_stream,)).start()
-        camera.stream_ball_locations()
-
+    # camera = Camera()
+    # threading.Thread(target=main, args=(camera.locations_stream,)).start()
+    # camera.stream_ball_locations()
+    reset()
