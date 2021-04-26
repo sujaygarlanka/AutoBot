@@ -1,4 +1,4 @@
-# TennisBot (Older Versions)
+# AutoBot (Older Versions)
 In this folder is code and details for the older versions of the TennisBot
 
 ## v0.0
