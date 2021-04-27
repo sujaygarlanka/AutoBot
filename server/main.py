@@ -18,9 +18,9 @@ class Controller:
         self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.s.connect((self.HOST, self.PORT))
 
-    def _send_command(self, command, power):
+    def _send_command(self, command, data):
         bytes = bytearray(str.encode(command))
-        bytes.append(np.uint8(power))
+        bytes.append(np.uint8(data))
         self.s.sendall(bytes)
         return repr(self.s.recv(1024))
 
@@ -30,8 +30,8 @@ class Controller:
     def right(self, power = 255):
         return self._send_command('R', power)
 
-    def center(self):
-        return self._send_command('C', 0)
+    def middle(self):
+        return self._send_command('M', 0)
 
     def forward(self, power = 255):
         return self._send_command('F', power)
@@ -42,9 +42,14 @@ class Controller:
     def stop(self):
         return self._send_command('S', 0)
 
+    def cameraPosition(self, angle):
+        return self._send_command('C', angle)
+
 class Keyboard_Controller:
     def __init__(self):
         self.controller = Controller()
+        self.controller.cameraPosition(130)
+        self.cameraPosition = 30
 
     def on_press(self, key):
         if key == Key.up:
@@ -55,6 +60,14 @@ class Keyboard_Controller:
             self.controller.right()
         elif key == Key.left:
             self.controller.left()
+        elif key == Key.caps_lock:
+            self.cameraPosition = self.cameraPosition + 20
+            print(self.cameraPosition)
+            self.controller.cameraPosition(self.cameraPosition)
+        elif key == Key.shift:
+            self.cameraPosition = self.cameraPosition - 20
+            self.controller.cameraPosition(self.cameraPosition)
+            print(self.cameraPosition)
 
     def on_release(self, key):
         if key == Key.esc:
@@ -63,7 +76,7 @@ class Keyboard_Controller:
         if key == Key.up or key == Key.down:
             self.controller.stop()
         elif key == Key.right or key == Key.left:
-            self.controller.center()
+            self.controller.middle()
 
     def start(self):
         # Collect events until released
@@ -152,10 +165,10 @@ def bot_control(locations):
                 controller.left()
             elif ball[0][0] > 350:
                 controller.right()
-            # if ball[0][2] < 60:
-            #     Commands.forward()
-            # elif ball[0][2] > 60:
-            #     Commands.stop()
+            if ball[0][2] < 60:
+                controller.forward()
+            elif ball[0][2] > 60:
+                controller.stop()
             
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()
@@ -163,13 +176,18 @@ if __name__ == '__main__':
         help="meltdown and must turn off all motors", action='store_true')
     ap.add_argument("-k", "--keyboard",
         help="control the bot using the computer keyboard", action='store_true')
+    ap.add_argument("-c", "--camera",
+        help="show only camera output", action='store_true')
     args = vars(ap.parse_args())
     if args['meltdown']:
         controller = Controller()
         controller.stop()
-        controller.center()
+        controller.middle()
     elif args['keyboard']:
         Keyboard_Controller().start()
+    elif args['camera']:
+        camera = Camera()
+        camera.stream_ball_locations()
     else:
         camera = Camera()
         threading.Thread(target=bot_control, args=(camera.locations_stream,)).start()
