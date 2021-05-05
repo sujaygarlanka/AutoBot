@@ -6,8 +6,6 @@ https://user-images.githubusercontent.com/21188938/117176844-53f5fc80-ad9e-11eb-
 
 # Architecture
 All components are connected to the same Wifi network.
-
-Components
 - Phone
   - Android phone runs [IP Webcam](https://play.google.com/store/apps/details?id=com.pas.webcam&hl=en_US&gl=US) which streams video to a local IP on the Wifi network. 
 - Computer
