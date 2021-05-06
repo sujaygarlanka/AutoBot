@@ -45,5 +45,3 @@ Ranges were calculating by applying no resistance and full resistance to the mot
 | -----------  | ---------------- | ------------ |
 | Front Motor  | 5.3 - 5.3        | 0.85 - 0.85  |
 | Rear Motor   | 4.5 - 6.5        | 0.25 - 2.6   |
-
-## Resources
