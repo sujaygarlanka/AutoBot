@@ -2,6 +2,7 @@
 
 ### Shows controls and basic object detection. Working on simplified autonomous navigation.
 <img src="https://raw.githubusercontent.com/sujaygarlanka/AutoBot/main/media/demo_gif.gif" width="50%" />
+
 https://user-images.githubusercontent.com/21188938/117176844-53f5fc80-ad9e-11eb-9bf9-94ac9eb4bc4e.mov
 
 # Architecture
