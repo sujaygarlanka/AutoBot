@@ -1,7 +1,6 @@
 # AutoBot
 
-# Demo of Current Version
-### Simply shows controls and basic object detection
+### Shows controls and basic object detection. Working on simplified autonomous navigation.
 https://user-images.githubusercontent.com/21188938/117176844-53f5fc80-ad9e-11eb-9bf9-94ac9eb4bc4e.mov
 
 # Architecture
@@ -45,5 +44,3 @@ Ranges were calculating by applying no resistance and full resistance to the mot
 | -----------  | ---------------- | ------------ |
 | Front Motor  | 5.3 - 5.3        | 0.85 - 0.85  |
 | Rear Motor   | 4.5 - 6.5        | 0.25 - 2.6   |
-
-## Resources
