@@ -45,6 +45,7 @@ Any computer that can run python
 
 ### Measurements
 Ranges were calculating by applying no resistance and full resistance to the motors.
+
 | Item         | Voltage Range (V)| Amp Range (A)|       
 | -----------  | ---------------- | ------------ |
 | Front Motor  | 5.3 - 5.3        | 0.85 - 0.85  |
