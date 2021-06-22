@@ -6,7 +6,7 @@ from torch.utils.data import TensorDataset, DataLoader
 from image_dataset import ImageFolder
 import numpy as np
 from model import YoloNetV3
-from utils import post_process, untransform_bboxes, cxcywh_to_xywh, load_weights_from_original
+from utils_yolo import post_process, untransform_bboxes, cxcywh_to_xywh, load_weights_from_original
 from PIL import Image, ImageDraw, ImageFont
 
 class ObjectDetection():

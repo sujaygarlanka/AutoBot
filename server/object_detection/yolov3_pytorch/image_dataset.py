@@ -5,7 +5,7 @@ import torch
 from PIL import Image
 from torch.utils.data import Dataset
 
-from utils import default_transform_fn
+from utils_yolo import default_transform_fn
 
 def _get_padding(h, w):
     """Generate the size of the padding given the size of the image,

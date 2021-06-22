@@ -25,7 +25,7 @@ def bot_control(locations):
             elif center > 480:
                 controller.right()
             if size < 250000:
-                controller.forward(220)
+                controller.forward(230)
             elif size > 250000:
                 controller.stop()
         else:
@@ -60,8 +60,8 @@ if __name__ == '__main__':
         camera.stream_yolov3_opencv()
         # camera.stream_yolov5_ultralytics()
         # camera.stream_depth_map()
+        # camera.stream_ball_locations()
     else:
         camera = Camera()
         threading.Thread(target=bot_control, args=(camera.locations_stream,)).start()
         camera.stream_yolov3_opencv()
-

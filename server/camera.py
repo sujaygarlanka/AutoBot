@@ -9,14 +9,14 @@ import imutils
 import torch
 import urllib.request
 import matplotlib.pyplot as plt
+from time import process_time
 
 from PIL import Image
+from object_detection import ObjectDetection 
+from image_dataset import SingleImage
 
 # https://stackoverflow.com/questions/12984426/python-pil-ioerror-image-file-truncated-with-big-images
 Image.LOAD_TRUNCATED_IMAGES = True
-
-# from object_detection import ObjectDetection 
-# from image_dataset import SingleImage
 
 class Camera():
     url = 'http://192.168.4.70:8080/shot.jpg'
@@ -29,12 +29,15 @@ class Camera():
     def stream_yolov3_personal(self):
         net = ObjectDetection(conf_thresh=0.8, nms_thresh=0.4)
         while True:
+            begin = process_time()
             frame = Image.open(requests.get(self.url, stream=True).raw).convert('RGB')
             image, scale, padding = SingleImage(frame)[0]
             image = torch.unsqueeze(image, 0)
             detections = net.detect(image, scale, padding)
             image_with_detections = net.draw_result(frame, detections[0], show=False)
             opencvImage = cv2.cvtColor(np.array(image_with_detections), cv2.COLOR_RGB2BGR)
+            end = process_time()
+            print(end - begin)
             # show the frame to our screen
             cv2.imshow("Frame", opencvImage)
             key = cv2.waitKey(1) & 0xFF
@@ -58,6 +61,7 @@ class Camera():
         colors= np.random.uniform(0,255,size=(len(classes),3))
 
         while True:
+            begin = process_time()
             # frame = Image.open(requests.get(self.url, stream=True).raw).convert('RGB')
             frame = urllib.request.urlopen(self.url)
             # Numpy to convert into a array
@@ -107,19 +111,21 @@ class Camera():
                 if i in indexes:
                     x,y,w,h = boxes[i]
                     label = str(classes[class_ids[i]])
-                    if label == 'person':
+                    if label == 'backpack':
                         valid_detections.append([x,y,w,h,label])
                     color = colors[i]
                     cv2.rectangle(img,(x,y),(x+w,y+h),color,2)
                     cv2.putText(img,label,(x,y+30),font,1,(255,255,255),2)
-            self.locations_stream.put(valid_detections)     
+            self.locations_stream.put(valid_detections)   
+            end = process_time()
+            print(end - begin)
             # show the frame to our screen
             cv2.imshow("Frame", img)
             key = cv2.waitKey(1) & 0xFF
             # if the 'q' key is pressed, stop the loop
             if key == ord("q"):
                 break
-
+            
         # close all windows
         cv2.destroyAllWindows()
 
@@ -128,10 +134,13 @@ class Camera():
         # Model
         model = torch.hub.load('ultralytics/yolov5', 'yolov5s', force_reload=True)
         while True:
+            begin = process_time()
             frame = Image.open(requests.get(self.url, stream=True).raw).convert('RGB')
             image_with_detections = model(frame, size=640)  # includes NMS
             image_with_detections = image_with_detections.render()
             opencvImage = cv2.cvtColor(image_with_detections[0], cv2.COLOR_RGB2BGR)
+            end = process_time()
+            print(end - begin)
             # show the frame to our screen
             cv2.imshow("Frame", opencvImage)
             key = cv2.waitKey(1) & 0xFF
@@ -219,6 +228,7 @@ class Camera():
 
         # keep looping
         while True:
+            begin = process_time()
              # Use urllib to get the image from the IP camera
             imgResp = urllib.request.urlopen(self.url)
 
@@ -264,7 +274,8 @@ class Camera():
                     cv2.circle(frame, (int(x), int(y)), 5, (0, 0, 255), -1)
                     locations_in_frame.append([x, y, radius])
             self.locations_stream.put(locations_in_frame)
-
+            end = process_time()
+            print(end - begin)
             # show the frame to our screen
             cv2.imshow("Frame", frame)
             key = cv2.waitKey(1) & 0xFF
