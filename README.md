@@ -4,6 +4,8 @@
 
 <img src="https://raw.githubusercontent.com/sujaygarlanka/AutoBot/main/media/demo_gif.gif" width="50%" />
 
+Full video demo here: 
+
 https://user-images.githubusercontent.com/21188938/117176844-53f5fc80-ad9e-11eb-9bf9-94ac9eb4bc4e.mov
 
 # Architecture
@@ -43,6 +45,7 @@ Any computer that can run python
 
 ### Measurements
 Ranges were calculating by applying no resistance and full resistance to the motors.
+
 | Item         | Voltage Range (V)| Amp Range (A)|       
 | -----------  | ---------------- | ------------ |
 | Front Motor  | 5.3 - 5.3        | 0.85 - 0.85  |
