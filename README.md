@@ -24,6 +24,7 @@ The chassis for the robotic platform is a retrofitted RC car. This obviates the 
 
 ### Hardware
 The hardware for the robot includes a few key components that allow for the robot to be wirelessly controlled. These components are a servo to control camera tilt, two motors to control the robot movement, a motor controller to allow for modulating power sent to the motors, a Wifi board to connect the robot to the central computer and a battery pack to power the whole system. The wiring between these components and details about them are below.
+
 Circuit Diagram            | Physical Mapping
 :-------------------------:|:-------------------------:
 <img src="https://raw.githubusercontent.com/sujaygarlanka/AutoBot/main/media/hardware_1.png" width="350px"/> | <img src="https://raw.githubusercontent.com/sujaygarlanka/AutoBot/main/media/hardware_2.png" width="350px"/>
