@@ -4,12 +4,12 @@
 The [OpenBot](https://www.openbot.org/) open-source project started by Vladlen Koltun, former Chief Scientist of Intelligent Systems at Intel, provides the blueprint and software to create an inexpensive 3D-printed robot that leverages the smartphone as the brains. Inspired by this, I created my own software, hardware and chassis for a robot. My progress on this is shown below.
 
 # Design
-The overall design is to situate a cheap phone on the robot to wirelessly send visual information to a computer that will then process that information and send the appropriate command wirelessly to the bot, thus creating a closed loop system with visual feedback as shown above. The design depends on the computer, phone and robot being on the same Wifi network because Wifi is used for wireless communication. A downside of this is some latency as well as being constrained to the physical area of the Wifi network. However, the benefits include allowing for scalable compute power, the ability to take advantage of desktop/server ML frameworks like PyTorch and Tensorflow with their large open-source communities and having a flexible coding environment that will allow for easy and powerful experimenting. Before this, the initial prototype had computation localized to the robot by having an iPhone situated on the robot that took in a visual feed, performed some computation and send commands over Bluetooth to the robot akin to the architecture of OpenBot. However, the mobile platform employing computer vision for perception proved problematic in quickly iterating. In addition, slow compile times and difficulties that arise from mobile programming made this first version a sub optimal platform for experimenting.
 
 Architecture               | Chassis
 :-------------------------:|:-------------------------:
 <img src="https://raw.githubusercontent.com/sujaygarlanka/AutoBot/main/media/architecture.png" width="350px"/> | <img src="https://raw.githubusercontent.com/sujaygarlanka/AutoBot/main/media/chassis_1.png" width="350px"/>
 
+The overall design is to situate a cheap phone on the robot to wirelessly send visual information to a computer that will then process that information and send the appropriate command wirelessly to the bot, thus creating a closed loop system with visual feedback as shown above. The design depends on the computer, phone and robot being on the same Wifi network because Wifi is used for wireless communication. A downside of this is some latency as well as being constrained to the physical area of the Wifi network. However, the benefits include allowing for scalable compute power, the ability to take advantage of desktop/server ML frameworks like PyTorch and Tensorflow with their large open-source communities and having a flexible coding environment that will allow for easy and powerful experimenting. Before this, the initial prototype had computation localized to the robot by having an iPhone situated on the robot that took in a visual feed, performed some computation and send commands over Bluetooth to the robot akin to the architecture of OpenBot. However, the mobile platform employing computer vision for perception proved problematic in quickly iterating. In addition, slow compile times and difficulties that arise from mobile programming made this first version a sub optimal platform for experimenting.
 
 # Components
 The important components of the robot platform are the phone/camera, the chassis, the electronic hardware in the chassis and finally the software stack processing visual input and sending commands to the robot.
@@ -23,11 +23,12 @@ The chassis for the robotic platform is a retrofitted RC car. This obviates the 
 <img src="https://raw.githubusercontent.com/sujaygarlanka/AutoBot/main/media/chassis_2.png" width="350px"/>
 
 ### Hardware
-The hardware for the robot includes a few key components that allow for the robot to be wirelessly controlled. These components are a servo to control camera tilt, two motors to control the robot movement, a motor controller to allow for modulating power sent to the motors, a Wifi board to connect the robot to the central computer and a battery pack to power the whole system. The wiring between these components and details about them are below.
 
 Circuit Diagram            | Physical Mapping
 :-------------------------:|:-------------------------:
 <img src="https://raw.githubusercontent.com/sujaygarlanka/AutoBot/main/media/hardware_1.png" width="350px"/> | <img src="https://raw.githubusercontent.com/sujaygarlanka/AutoBot/main/media/hardware_2.png" width="350px"/>
+
+The hardware for the robot includes a few key components that allow for the robot to be wirelessly controlled. These components are a servo to control camera tilt, two motors to control the robot movement, a motor controller to allow for modulating power sent to the motors, a Wifi board to connect the robot to the central computer and a battery pack to power the whole system. The wiring between these components and details about them are below.
 
 **Motor Controller ([L298N](https://www.amazon.com/HiLetgo-Controller-Stepper-H-Bridge-Mega2560/dp/B07BK1QL5T/ref=sr_1_3?keywords=L298N+Motor+Driver&qid=1638558164&sr=8-3))**
 The motor controller has the battery hooked to it as well as the two motors and the microcontroller. The battery is used by the motor controller to run the motors and to step down the voltage to 5V to power the microcontroller.
