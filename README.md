@@ -1,5 +1,12 @@
 # Autonomous Bot
 
+- [Introduction](#introduction)
+- [Design](#design)
+- [Components](#components)
+  - [Smartphone/Camera](#smartphonecamera)
+  - [Chassis](#chassis)
+  - [Hardware](#hardware)
+
 # Introduction
 The [OpenBot](https://www.openbot.org/) open-source project started by Vladlen Koltun, former Chief Scientist of Intelligent Systems at Intel, provides the blueprint and software to create an inexpensive 3D-printed robot that leverages the smartphone as the brains. Inspired by this, I created my own software, hardware and chassis for a robot. My progress on this is shown below.
 
@@ -61,6 +68,3 @@ The depth perception neural net proved to face a similar issue. I was able to us
 <img src="https://raw.githubusercontent.com/sujaygarlanka/AutoBot/main/media/software_2.png" width="350px"/>
 
 The last option left was a very simple perception algorithm that could only detect ArUco markers (used in augmented reality), but could do so very quickly with limited compute power. This resulted in a 5.1 fps processing rate. Putting an ArUco marker in the view of the robot, I was able to have the robot simply navigate towards it by centering it in the frame as the robot inched towards it. This very primitive path planning algorithm worked, but with many downsides. The first was the robot snaked in an S as it kept overshooting target moved closer. My first step to improving this is instead planning a path composed of splines that align with the defined movement of the robot. While this is still far from perfect, it should allow for a far smoother trajectory.
-
-# Summary
-While robotics is incredibly complex and I don’t expect to master it by working with a primitive homemade robot, I was inspired to create this robotic platform engage my curiosity in the field and take the first steps towards learning more about it through a hands on approach.
