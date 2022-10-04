@@ -6,8 +6,10 @@ The [OpenBot](https://www.openbot.org/) open-source project started by Vladlen K
 # Design
 The overall design is to situate a cheap phone on the robot to wirelessly send visual information to a computer that will then process that information and send the appropriate command wirelessly to the bot, thus creating a closed loop system with visual feedback as shown above. The design depends on the computer, phone and robot being on the same Wifi network because Wifi is used for wireless communication. A downside of this is some latency as well as being constrained to the physical area of the Wifi network. However, the benefits include allowing for scalable compute power, the ability to take advantage of desktop/server ML frameworks like PyTorch and Tensorflow with their large open-source communities and having a flexible coding environment that will allow for easy and powerful experimenting. Before this, the initial prototype had computation localized to the robot by having an iPhone situated on the robot that took in a visual feed, performed some computation and send commands over Bluetooth to the robot akin to the architecture of OpenBot. However, the mobile platform employing computer vision for perception proved problematic in quickly iterating. In addition, slow compile times and difficulties that arise from mobile programming made this first version a sub optimal platform for experimenting.
 
-<img src="https://raw.githubusercontent.com/sujaygarlanka/AutoBot/main/media/architecture.png" width="350px"/>
-<img src="https://raw.githubusercontent.com/sujaygarlanka/AutoBot/main/media/chassis_1.png" width="350px"/>
+Architecture               | Chassis
+:-------------------------:|:-------------------------:
+<img src="https://raw.githubusercontent.com/sujaygarlanka/AutoBot/main/media/architecture.png" width="350px"/> | <img src="https://raw.githubusercontent.com/sujaygarlanka/AutoBot/main/media/chassis_1.png" width="350px"/>
+
 
 # Components
 The important components of the robot platform are the phone/camera, the chassis, the electronic hardware in the chassis and finally the software stack processing visual input and sending commands to the robot.
@@ -22,15 +24,17 @@ The chassis for the robotic platform is a retrofitted RC car. This obviates the 
 
 ### Hardware
 The hardware for the robot includes a few key components that allow for the robot to be wirelessly controlled. These components are a servo to control camera tilt, two motors to control the robot movement, a motor controller to allow for modulating power sent to the motors, a Wifi board to connect the robot to the central computer and a battery pack to power the whole system. The wiring between these components and details about them are below.
-
-<img src="https://raw.githubusercontent.com/sujaygarlanka/AutoBot/main/media/hardware_1.png" width="350px"/>
-<img src="https://raw.githubusercontent.com/sujaygarlanka/AutoBot/main/media/hardware_2.png" width="350px"/>
+Circuit Diagram            | Physical Mapping
+:-------------------------:|:-------------------------:
+<img src="https://raw.githubusercontent.com/sujaygarlanka/AutoBot/main/media/hardware_1.png" width="350px"/> | <img src="https://raw.githubusercontent.com/sujaygarlanka/AutoBot/main/media/hardware_2.png" width="350px"/>
 
 **Motor Controller ([L298N](https://www.amazon.com/HiLetgo-Controller-Stepper-H-Bridge-Mega2560/dp/B07BK1QL5T/ref=sr_1_3?keywords=L298N+Motor+Driver&qid=1638558164&sr=8-3))**
 The motor controller has the battery hooked to it as well as the two motors and the microcontroller. The battery is used by the motor controller to run the motors and to step down the voltage to 5V to power the microcontroller.
 
 The motor controller specifically allows for the motors to turn in either direction and at a variable speeds. The motor direction is controlled by an H-bridge design which allows for changing the direction of current flow through the motor. The overall design of the H-bridge is that it has 4 transistors in an H configuration where one pair of diagonally placed transistors are active (i.e. closed circuit) and the another pair are non-active, forcing current to flow through motor in one direction. When this is reversed, current flows the other way, reversing the motor direction.
+
 <img src="https://raw.githubusercontent.com/sujaygarlanka/AutoBot/main/media/hardware_3.png" width="350px"/>
+
 The motor controller controls the speed of the motors through standard PWM (pulse width modulation) being sent from the microcontroller. The controller is used for both the motor used for steering the robot as well as the motor for propelling the robot forward.
 
 **Motors/Servo ([RC Car](https://www.amazon.com/Monster-Jam-Official-Remoter-Control/dp/B07HGR66Q5?pd_rd_w=aHP5k&pf_rd_p=3fdb7f7b-31a2-4f37-b9bc-1469e3d4fb18&pf_rd_r=ST42RDH626Q38TD325DR&pd_rd_r=0108b0e8-8dd8-4746-af2a-839fe3614d4b&pd_rd_wg=Fw5vf))**
