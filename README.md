@@ -8,6 +8,24 @@ Full video demo here:
 
 https://user-images.githubusercontent.com/21188938/117176844-53f5fc80-ad9e-11eb-9bf9-94ac9eb4bc4e.mov
 
+# Introduction
+The OpenBot open-source project started by Vladlen Koltun, former Chief Scientist of Intelligent Systems at Intel, provides the blueprint and software to create an inexpensive 3D-printed robot that leverages the smartphone as the brains. Inspired by this, I created my own software, hardware and chassis for a robot. My progress on this is shown below.
+
+# Design
+
+The overall design is to situate a cheap phone on the robot to wirelessly send visual information to a computer that will then process that information and send the appropriate command wirelessly to the bot, thus creating a closed loop system with visual feedback as shown above. The design depends on the computer, phone and robot being on the same Wifi network because Wifi is used for wireless communication. A downside of this is some latency as well as being constrained to the physical area of the Wifi network. However, the benefits include allowing for scalable compute power, the ability to take advantage of desktop/server ML frameworks like PyTorch and Tensorflow with their large open-source communities and having a flexible coding environment that will allow for easy and powerful experimenting. Before this, the initial prototype had computation localized to the robot by having an iPhone situated on the robot that took in a visual feed, performed some computation and send commands over Bluetooth to the robot akin to the architecture of OpenBot. However, the mobile platform employing computer vision for perception proved problematic in quickly iterating. In addition, slow compile times and difficulties that arise from mobile programming made this first version a sub optimal platform for experimenting.![image](https://user-images.githubusercontent.com/21188938/193909506-407f6435-310b-4d02-b1a9-14c37f4ce7fc.png)
+
+# Components
+
+The important components of the robot platform are the phone/camera, the chassis, the electronic hardware in the chassis and finally the software stack processing visual input and sending commands to the robot.
+
+Smartphone/Camera:
+For visual input, the only thing needed is a Wifi enabled camera. The Wifi enabled camera used is an inexpensive Android smartphone. This could not be used to run the robot, but it would be enough to stream a camera feed to the internet. I used an app called IPWebcam that set the phone up as a server on the local area network from which the camera feed could be accessed.
+
+Chassis:
+The chassis for the robotic platform is a retrofitted RC car. This obviates the need for a 3D printer. In addition, the RC car uses rack-and-pinion steering as used in automobiles instead of differential steering used in vehicles like OpenBot and tanks. Experimenting on a platform with rack-and-pinion steering is more difficult, but also far more enticing because it mimics how real cars operate. This allows experimenting with self-driving on a far smaller scale. Also, the chassis has a camera holder that can change the camera viewing angle of the phone by using a servo to reduce or increase the length of a supporting string that maps to a specific camera tilt as shown below.
+
+
 # Architecture
 All components are connected to the same Wifi network.
 - Phone
