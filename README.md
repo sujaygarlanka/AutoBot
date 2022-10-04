@@ -1,10 +1,15 @@
 # Autonomous Bot
 
-- [Introduction](#introduction)
-- [Design](#design)
-- [Components](#components)
+[Introduction](#introduction)
+
+[Design](#design)
+
+[Components](#components)
+
   - [Smartphone/Camera](#smartphonecamera)
+  
   - [Chassis](#chassis)
+  
   - [Hardware](#hardware)
 
 # Introduction
