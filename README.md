@@ -1,4 +1,4 @@
-# AutoBot
+# Autonomous Bot
 
 ### Shows controls and basic object detection. Working on simplified autonomous navigation.
 
